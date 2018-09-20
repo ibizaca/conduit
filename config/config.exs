@@ -17,6 +17,10 @@ config :conduit, ConduitWeb.Endpoint,
   pubsub: [name: Conduit.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+#Commanded application configuration to use EventStore adapter
+config :commanded,
+  event_store_adapter: Commanded.EventStore.Adapters.EventStore
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
