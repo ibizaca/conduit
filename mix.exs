@@ -49,7 +49,8 @@ defmodule Conduit.Mixfile do
       {:ex_machina, "~> 2.0", only: :test},
       {:uuid, "~> 1.1"},
       {:exconstructor, "~> 1.1"},
-      {:mix_test_watch, "~> 0.5", only: :dev, runtime: false}
+      {:mix_test_watch, "~> 0.5", only: :dev, runtime: false},
+      {:vex, "~> 0.6"}
     ]
   end
 

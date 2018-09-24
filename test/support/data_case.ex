@@ -2,10 +2,8 @@ defmodule Conduit.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
-
   You may define functions here to be used as helpers in
   your tests.
-
   Finally, if the test case interacts with the database,
   it cannot be async. For this reason, every test runs
   inside a transaction which is reset at the beginning
@@ -26,7 +24,7 @@ defmodule Conduit.DataCase do
     end
   end
 
-  setup _tags do
+  setup do
     Application.stop(:conduit)
     Application.stop(:commanded)
     Application.stop(:eventstore)
@@ -43,6 +41,7 @@ defmodule Conduit.DataCase do
     {:ok, conn} =
       EventStore.configuration()
       |> EventStore.Config.parse()
+      |> EventStore.Config.default_postgrex_opts() # the missing part
       |> Postgrex.start_link()
 
     EventStore.Storage.Initializer.reset!(conn)
