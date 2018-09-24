@@ -45,10 +45,11 @@ defmodule Conduit.Mixfile do
       {:cowboy, "~> 1.0"},
       {:commanded, "~> 0.15"},
       {:commanded_eventstore_adapter, "~> 0.3"},
+      {:commanded_ecto_projections, "~> 0.6"},
       {:ex_machina, "~> 2.0", only: :test},
       {:uuid, "~> 1.1"},
       {:exconstructor, "~> 1.1"},
-      {:mix_test_watch, "~> 0.5", only: :dev, runtime: false},
+      {:mix_test_watch, "~> 0.5", only: :dev, runtime: false}
     ]
   end
 

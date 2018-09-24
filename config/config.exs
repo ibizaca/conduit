@@ -21,6 +21,10 @@ config :conduit, ConduitWeb.Endpoint,
 config :commanded,
   event_store_adapter: Commanded.EventStore.Adapters.EventStore
 
+#Commanded ecto projection configuration for ecto repo
+config :commanded_ecto_projections,
+  repo: Conduit.Repo
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
