@@ -15,5 +15,12 @@ defmodule Conduit.AccountsTest do
       assert user.bio == nil
       assert user.image == nil
     end
+
+    @tag :integration
+    test "should fail with invalid data and return error" do
+      assert {:error, :validation_failure, errors} = Accounts.register_user(build(:user, username: ""))
+
+      assert errors == %{username: ["can't be empty"]}
+    end
   end
 end
