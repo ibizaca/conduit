@@ -2,11 +2,21 @@ defmodule Conduit.Accounts do
   @moduledoc """
   The boundary for the Accounts system.
   """
-
+  alias Conduit.Accounts.Queries.UserByUsername
   alias Conduit.Accounts.Commands.RegisterUser
   alias Conduit.Accounts.Projections.User
   alias Conduit.Router
   alias Conduit.Repo
+
+  @doc """
+  Get an existing user by their username, or return `nil` if not registered
+  """
+  def user_by_username(username) do
+    username
+    |> String.downcase()
+    |> UserByUsername.new()
+    |> Repo.one()
+  end
 
   @doc """
   Register a new user.
@@ -16,8 +26,9 @@ defmodule Conduit.Accounts do
 
     register_user =
       attrs
-      |> assign(:user_uuid, uuid)
       |> RegisterUser.new()
+      |> RegisterUser.assign_uuid(uuid)
+      |> RegisterUser.downcase_username()
 
     with :ok <- Router.dispatch(register_user, consistency: :strong) do
       get(User, uuid)
