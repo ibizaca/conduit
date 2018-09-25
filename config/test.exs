@@ -9,6 +9,9 @@ config :conduit, ConduitWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+# Reduce number of encrypt rounds for test
+config :comeonin, :bcrypt_log_rounds, 4
+
 # Configure your database
 #config :conduit, Conduit.Repo,
 #  adapter: Ecto.Adapters.Postgres,

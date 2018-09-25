@@ -1,11 +1,13 @@
 defmodule Conduit.Accounts.Commands.RegisterUser do
   defstruct [
-    :user_uuid,
-    :username,
-    :email,
-    :password,
-    :hashed_password,
+    user_uuid: "",
+    username: "",
+    email: "",
+    password: "",
+    hashed_password: "",
   ]
+
+  alias Conduit.Auth
 
   use ExConstructor
   use Vex.Struct
@@ -36,7 +38,20 @@ defmodule Conduit.Accounts.Commands.RegisterUser do
     %__MODULE__{register_user | username: String.downcase(username)}
   end
 
+  @doc """
+  Convert email to lowercase characters
+  """
   def downcase_email(%__MODULE__{email: email} = register_user) do
     %__MODULE__{register_user | email: String.downcase(email)}
+  end
+
+  @doc """
+  Hash the password, clear the original password
+  """
+  def hash_password(%__MODULE__{password: password} = register_user) do
+    %__MODULE__{register_user |
+      password: nil,
+      hashed_password: Auth.hash_password(password),
+    }
   end
 end

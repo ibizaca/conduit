@@ -25,42 +25,8 @@ defmodule Conduit.DataCase do
   end
 
   setup do
-    Application.stop(:conduit)
-    Application.stop(:commanded)
-    Application.stop(:eventstore)
-
-    reset_eventstore()
-    reset_readstore()
-
-    Application.ensure_all_started(:conduit)
+    Conduit.Storage.reset!()
 
     :ok
-  end
-
-  defp reset_eventstore do
-    {:ok, conn} =
-      EventStore.configuration()
-      |> EventStore.Config.parse()
-      |> EventStore.Config.default_postgrex_opts() # the missing part
-      |> Postgrex.start_link()
-
-    EventStore.Storage.Initializer.reset!(conn)
-  end
-
-  defp reset_readstore do
-    readstore_config = Application.get_env(:conduit, Conduit.Repo)
-
-    {:ok, conn} = Postgrex.start_link(readstore_config)
-
-    Postgrex.query!(conn, truncate_readstore_tables(), [])
-  end
-
-  defp truncate_readstore_tables do
-"""
-TRUNCATE TABLE
-  accounts_users,
-  projection_versions
-RESTART IDENTITY;
-"""
   end
 end
