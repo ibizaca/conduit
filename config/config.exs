@@ -25,6 +25,13 @@ config :commanded,
 config :commanded_ecto_projections,
   repo: Conduit.Repo
 
+#Validator configuration for Vex
+config :vex,
+sources: [
+  Conduit.Support.Validators,
+  Vex.Validators
+]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
