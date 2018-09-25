@@ -20,4 +20,18 @@ defmodule Conduit.Accounts.Commands.RegisterUser do
       {:username, "has already been taken"},
     ]
   end
+
+  @doc """
+  Assign a unique identity for the user
+  """
+  def assign_uuid(%__MODULE__{} = register_user, uuid) do
+    %__MODULE__{register_user | user_uuid: uuid}
+  end
+
+  @doc """
+  Convert username to lowercase characters
+  """
+  def downcase_username(%__MODULE__{username: username} = register_user) do
+    %__MODULE__{register_user | username: String.downcase(username)}
+  end
 end
