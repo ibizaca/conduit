@@ -75,7 +75,7 @@ defmodule Conduit.AccountsTest do
 
     @tag :integration
     test "should hash password" do
-      assert {:ok, %User{} = user} = Accounts.register_user(build(:user))
+      assert {:ok, %User{} = user} = Accounts.register_user(build(:user, password: "ibizacaibizaca"))
       assert Auth.validate_password("ibizacaibizaca", user.hashed_password)
     end
   end
