@@ -33,6 +33,17 @@ sources: [
   Vex.Validators
 ]
 
+#Guardian configuration for authentication service using JWT token
+config :guardian, Guardian,
+  allowed_algos: ["HS512"],
+  verify_module: Guardian.JWT,
+  issuer: "Conduit",
+  ttl: {30, :days},
+  allowed_drift: 2000,
+  verify_issuer: true,
+  secret_key: "Ho+FdG8AO8y6g0ZARIYDX8VS4XwyCpHa1HtM2/GFLtfBFg8Yn40ha+FTfLsX0X0E",
+  serializer: Conduit.Auth.GuardianSerializer
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

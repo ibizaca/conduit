@@ -10,6 +10,13 @@ defmodule Conduit.Accounts do
   alias Conduit.Repo
 
   @doc """
+  Get a single user by their UUID
+  """
+  def user_by_uuid(uuid) when is_binary(uuid) do
+    Repo.get(User, uuid)
+  end
+
+  @doc """
   Get an existing user by their username, or return `nil` if not registered
   """
   def user_by_username(username) do
